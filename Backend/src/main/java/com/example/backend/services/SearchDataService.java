@@ -11,12 +11,10 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,19 +30,23 @@ public class SearchDataService {
     private final static String INDEX_NAME="products_sku";
 
 
-    public List<Map<String, Object>>  findAll()  {
+    public List<Map<String,Object>> findAll() {
         QueryBuilder queryBuilder = QueryBuilders.boolQuery()
                 .filter(QueryBuilders.termQuery("active", true));
-        return  executeSearch(queryBuilder);
+        return executeSearch(queryBuilder);
     }
+
 
     public List<Map<String,Object>> findByNameOrDescription(String search)  {
         QueryBuilder queryBuilder = QueryBuilders.boolQuery()
-                .must(QueryBuilders.matchBoolPrefixQuery("name",search).operator(Operator.OR))
-                .must(QueryBuilders.matchBoolPrefixQuery("description",search).operator(Operator.OR))
-                .filter(QueryBuilders.termQuery("active", true));
-        return  executeSearch(queryBuilder);
+                .should(QueryBuilders.matchQuery("name", search))
+                .should(QueryBuilders.matchPhraseQuery("description", search))
+                .filter(QueryBuilders.termQuery("active", true))
+                .minimumShouldMatch(1);
+        return executeSearch(queryBuilder);
     }
+
+
 
     private List<Map<String,Object>> executeSearch(QueryBuilder qb)  {
 
@@ -64,7 +66,7 @@ public class SearchDataService {
             log.error("Произошла ошибка при поиске ",e);
             throw new SearchDataException("Произошла ошибка при поиске products "+e.getMessage());
         }
-
+        log.info("Поиск успешно выполнен");
         List<Map<String, Object>> sourceList=new ArrayList<>();
         for (SearchHit hit : searchResponse.getHits().getHits()) {
             sourceList.add(hit.getSourceAsMap());
