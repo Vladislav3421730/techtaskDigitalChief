@@ -1,0 +1,24 @@
+services:
+  postgres:
+    container_name: 'postgres'
+    image: 'postgres:13-alpine'
+    ports:
+      - '5432'
+    environment:
+      - 'POSTGRES_DB=techtaskdb'
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=postgres'
+
+  elasticsearch:
+    container_name: 'elasticsearch'
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:8.5.3'
+    environment:
+      - 'discovery.type=single-node'
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+      - 'xpack.security.enabled=false'
+    ports:
+      - '9200:9200'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
