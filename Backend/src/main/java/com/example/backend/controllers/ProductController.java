@@ -1,7 +1,5 @@
 package com.example.backend.controllers;
 
-import com.example.backend.exceptions.LoadDataFromDbToIndexException;
-import com.example.backend.services.CreateIndexService;
 import com.example.backend.services.LoadDataService;
 import com.example.backend.services.SearchDataService;
 import lombok.RequiredArgsConstructor;
