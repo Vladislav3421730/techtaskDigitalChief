@@ -1,14 +1,18 @@
 services:
-
   postgres:
     container_name: 'postgres'
     image: 'postgres:13-alpine'
+    build:
+      context: ./postgres/
+      dockerfile: Dockerfile
     ports:
       - '5432'
     environment:
       - 'POSTGRES_DB=techtaskdb'
       - 'POSTGRES_USER=postgres'
       - 'POSTGRES_PASSWORD=postgres'
+    volumes:
+      - 'postgresvolume:/var/lib/postgresql/data'
 
   elasticsearch:
     container_name: 'elasticsearch'
@@ -23,3 +27,5 @@ services:
       memlock:
         soft: -1
         hard: -1
+volumes:
+  postgresvolume:

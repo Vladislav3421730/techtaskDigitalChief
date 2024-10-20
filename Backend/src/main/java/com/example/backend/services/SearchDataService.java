@@ -16,7 +16,6 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +28,7 @@ import java.util.stream.Collectors;
 public class SearchDataService {
 
     private final RestHighLevelClient restHighLevelClient;
+    private final CreateIndexService createIndexService;
     private final static String INDEX_NAME="products_sku";
 
 
@@ -55,7 +55,7 @@ public class SearchDataService {
 
 
     private List<Map<String,Object>> executeSearch(QueryBuilder qb)  {
-
+        createIndexService.createIndex();//Если индекс был создан, то эту строку можно убрать
         SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 

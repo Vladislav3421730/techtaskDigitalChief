@@ -26,7 +26,6 @@ public class CreateIndexService {
 
     private final static String INDEX_NAME="products_sku";
 
-    //Данный метод не используется в коде, но при помощи него был создан индекс
     public void createIndex() {
 
         GetIndexRequest request = new GetIndexRequest(INDEX_NAME);
