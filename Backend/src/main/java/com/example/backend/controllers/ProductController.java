@@ -20,6 +20,7 @@ public class ProductController {
 
     @GetMapping("/findAll")
     public List<Map<String, Object>> findAllProducts()  {
+
         return searchDataService.findAll();
     }
 
@@ -32,4 +33,5 @@ public class ProductController {
     public void AddDataToIndex() {
         loadDataService.loadDataFromDbToIndex();
     }
+
 }

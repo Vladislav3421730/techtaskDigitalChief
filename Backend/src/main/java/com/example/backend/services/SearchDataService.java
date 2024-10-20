@@ -55,7 +55,7 @@ public class SearchDataService {
 
 
     private List<Map<String,Object>> executeSearch(QueryBuilder qb)  {
-        createIndexService.createIndex();//Если индекс был создан, то эту строку можно убрать
+        createIndexService.createIndex();//Если индекс создан эту строку можно убрать
         SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 

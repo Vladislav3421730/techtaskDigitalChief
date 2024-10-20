@@ -6,6 +6,7 @@ import com.example.backend.exceptions.SearchDataException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.ElasticsearchStatusException;
+import org.elasticsearch.action.admin.indices.refresh.RefreshRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
@@ -41,8 +42,10 @@ public class CreateIndexService {
                         .create(createIndexRequest, RequestOptions.DEFAULT);
 
                 if (createIndexResponse.isAcknowledged()){
-                        log.info("Индекс {} был успешно создан",createIndexResponse.index());
                         loadDataService.loadDataFromDbToIndex();
+                        restHighLevelClient.indices().refresh(new RefreshRequest(INDEX_NAME), RequestOptions.DEFAULT);
+                        log.info("Индекс {} был успешно создан",createIndexResponse.index());
+
                 }
                 else throw new CreateIndexException("Ошибка создания индекса");
             }
@@ -52,5 +55,6 @@ public class CreateIndexService {
         }
 
     }
+
 
 }
