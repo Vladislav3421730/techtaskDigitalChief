@@ -1,6 +1,6 @@
 package com.example.backend.services;
 
-import com.example.backend.exceptions.LoadDataFromDbToIndexException;
+
 import com.example.backend.exceptions.SearchDataException;
 import com.example.backend.model.Product;
 import com.example.backend.model.Sku;
