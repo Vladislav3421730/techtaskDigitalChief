@@ -16,17 +16,17 @@ export default function Table({ products, loading }) {
         <table className="table table-bordered">
           <thead className="thead-dark">
             <tr>
-              <th scope="col">id</th>
-              <th scope="col">Название</th>
-              <th scope="col">Описание</th>
-              <th scope="col">Создан</th>
-              <th scope="col">Все SKU</th>
+              <th>id</th>
+              <th>Название</th>
+              <th>Описание</th>
+              <th>Создан</th>
+              <th>Все SKU</th>
             </tr>
           </thead>
           <tbody>
             {!loading ? (
               products.map((product) => (
-                <tr scope="row" key={product.id}>
+                <tr key={product.unique_id} >
                   <td>{product.id}</td>
                   <td>{product.name}</td>
                   <td>{product.description}</td>

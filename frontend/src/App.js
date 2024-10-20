@@ -12,14 +12,19 @@ function App() {
     fetchProducts(setProdutcs, setLoading,setMessage);
   }, []);
 
+
   const handleAddData =  () => {
-    AddData(setLoading,setMessage);
-    fetchProducts(setProdutcs, setLoading,setMessage);
+   AddData(setLoading,setMessage);
+   fetchProducts(setProdutcs, setLoading, setMessage);
+   window.location.reload();
   };
 
 
+
   return (
+  
     <div className="container mt-4">
+        
       <button type="button" className="btn btn-primary" onClick={handleAddData}>Добавить данные в индекс (вызов службы) </button>
       
       <div className="input-group mb-3 mt-2">
@@ -28,7 +33,6 @@ function App() {
           <button className="btn btn-secondary" onClick={()=> SearchData(setProdutcs, setLoading,  document.getElementById("inputsearch").value,setMessage)} type="button">Найти</button>
         </div>
       </div>
-    
       <Table products={products} loading={loading}></Table>
       {message && <p style={{ color: 'red' }}>{message}</p>}
     </div>

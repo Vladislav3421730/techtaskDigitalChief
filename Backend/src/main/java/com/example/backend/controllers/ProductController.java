@@ -4,6 +4,7 @@ import com.example.backend.services.CreateIndexService;
 import com.example.backend.services.LoadDataService;
 import com.example.backend.services.SearchDataService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
@@ -30,8 +31,9 @@ public class ProductController {
     }
 
     @GetMapping("/addData")
-    public void AddDataToIndex() {
+    public ResponseEntity<Map<String, String>> AddDataToIndex() {
         loadDataService.loadDataFromDbToIndex();
+        return ResponseEntity.ok(Map.of("message", "Данные успешно обновлены"));
     }
 
 }

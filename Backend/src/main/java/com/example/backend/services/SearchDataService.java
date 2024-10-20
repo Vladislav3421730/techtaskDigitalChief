@@ -56,6 +56,7 @@ public class SearchDataService {
 
     private List<Map<String,Object>> executeSearch(QueryBuilder qb)  {
         createIndexService.createIndex();//Если индекс создан эту строку можно убрать
+
         SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
@@ -73,8 +74,13 @@ public class SearchDataService {
             throw new SearchDataException("Произошла ошибка при поиске products "+e.getMessage());
         }
         log.info("Поиск успешно выполнен");
-        return  Arrays.stream(searchResponse.getHits().getHits())
-                    .map(SearchHit::getSourceAsMap).collect(Collectors.toList());
+        return Arrays.stream(searchResponse.getHits().getHits())
+                .map(hit -> {
+                    Map<String, Object> sourceAsMap = hit.getSourceAsMap();
+                    sourceAsMap.put("unique_id", hit.getId());
+                    return sourceAsMap;
+                })
+                .collect(Collectors.toList());
 
     }
 

@@ -43,7 +43,6 @@ public class CreateIndexService {
 
                 if (createIndexResponse.isAcknowledged()){
                         loadDataService.loadDataFromDbToIndex();
-                        restHighLevelClient.indices().refresh(new RefreshRequest(INDEX_NAME), RequestOptions.DEFAULT);
                         log.info("Индекс {} был успешно создан",createIndexResponse.index());
 
                 }

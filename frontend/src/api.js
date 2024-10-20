@@ -27,6 +27,8 @@ export async function AddData(setLoading,setMessage) {
             setMessage(error.message)
             console.log(error)
         }
+        const data=await response.json()
+        console.log(data.message)
     } catch (error) {
         console.log(error);
     }

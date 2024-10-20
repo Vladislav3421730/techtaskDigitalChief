@@ -5,14 +5,14 @@ export default function SkuTable({ skuList, setSelectedSkuList }) {
         <table className="table table-bordered">
           <thead className="thead-dark">
             <tr>
-              <th scope="col">Цвет</th>
-              <th scope="col">Цена</th>
-              <th scope="col">Размер</th>
+              <th>Цвет</th>
+              <th>Цена</th>
+              <th>Размер</th>
             </tr>
           </thead>
           <tbody>
-            {skuList.map((sku, index) => (
-              <tr key={index}>
+            {skuList.map((sku,index) => (
+              <tr key={index} >
                 <td>{sku.color}</td>
                 <td>{sku.cost}</td>
                 <td>{sku.size}</td>
