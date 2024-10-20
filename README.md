@@ -16,4 +16,9 @@
 Далее запустить его<br>
 ```docker run -p 3000:3000 frontend```<br>
 После запуска все образы и контейнеры должны автоматически появиться в приложении Docker Desktop.
-
+Если по каким-то причинам БД не была проиниализирована данными, то можно перейти <br>
+````cd techtaskDigitalChief/Backend```<br>
+Затем ввести команды по очереди<br>
+```docker-compose exec postgres sh```<br>
+```psql -U postgres -d techtaskdb```<br>
+И далее скопировать скрпит из файла init.sql в консоль
